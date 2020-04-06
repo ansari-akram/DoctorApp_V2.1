@@ -7,7 +7,7 @@
 
 ## Steps to follow
 
-### Install requirements:
+>### Install requirements:
  - pip3 install -r requirements.txt
   
   ***
