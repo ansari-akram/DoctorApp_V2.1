@@ -1,9 +1,8 @@
 # DoctorApp_V1
 ***
 >#### About this version
-- Navigation Bar in all pages.
-- Update in Report Page.
-- Can see uploaded image in the Report Page.
+- You can choose whether to include Heatmap Image or not.
+- Can download Report in PDF format even without Login.
 ***
 
 ## Steps to follow
