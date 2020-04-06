@@ -1,0 +1,248 @@
+{% load crispy_forms_tags %}
+{% load static %}
+<html>
+<link href="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<body>
+<!--NAVBAR START-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="navigation">
+    <a class="navbar-brand" href=#><i class='fa fa-clinic-medical'></i>Doctor App By</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <img src="{% static 'Images/gbm.png' %}" alt="no image" height="50" width="150">
+    <div class="collapse navbar-collapse justify-content-around" id="navbarSupportedContent">
+        <ul class="navbar-nav mc-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i>&nbsp;Home </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'about_us' %}"><i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;About
+                    Us</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact_us' %}"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;Contact
+                    Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'analyze' %}"><i class="fa fa-search-plus" aria-hidden="true"></i>&nbsp;Analyze</a>
+            </li>
+
+            {% if user.is_authenticated %}
+
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'patient' %}"><i class="fa fa-bed" aria-hidden="true"></i>Patient
+                    Details</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Log
+                    out</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Sign
+                    Up</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}"><i class="fa fa-sign-in" aria-hidden="true"></i>&nbsp;Log
+                    In</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<!--NAVBAR END-->
+<div class="row justify-content-center align-items-center">
+    <div class="col-md-6">
+        <div class="col-md-12">
+            <form class="form" action="" method="post" enctype="multipart/form-data">
+                <title>Report Page</title>
+                <style>
+    *{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    height:100%;
+    width:100%;
+    background-position: center;
+    background-size: cover;
+    position: absolute;
+    margin: 0 0 0 7% auto;
+
+}
+
+
+#top_table
+{
+    width:100%;
+    cellpadding:15;
+    position: left;
+}
+
+
+#rheading
+{
+    text-align: center;
+}
+
+
+
+#img_head
+{
+    align: center;
+    width: 100%;
+}
+
+.double
+{
+    border-style: double;
+    padding-top: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-left: 30px;
+
+}
+
+                </style>
+
+                <br>
+                Do you want to Change location?<a href="{% url 'location' %}">Click here</a><br><br>
+                <div id="content_id" class="double">
+                    <img id="img_head" src="{% static 'Images/labheader.png'%}">
+                    <!--    <h2 class="title">Patient Report</h2>-->
+                    <p>
+                        <table id="top_table">
+                            <tr>
+                                <td>
+                    <p><h6><b>Name: </b>{{ patient_name}}</h6></p></td>
+                    <td><p><h6></h6></p></td>
+                    <td><p><h6><b>Gender: </b>{{ patient_name.Gender }}</h6></p></td>
+                    <td><p><h6></h6></p></td>
+                    </tr>
+                    <tr>
+                        <td><p><h6><b>Phone Number: </b>{{ patient_name.phone }}</h6></p></td>
+                        <td><p><h6></h6></p></td>
+                        <td><p><h6><b>Age: </b>{{ patient_name.Age }}</h6></p></td>
+                        <td><p><h6></h6></p></td>
+                    </tr>
+                    <tr>
+                        <td><p><h6><b>Date & Time: </b>{{patient_name.time}}</h6></p></td>
+                        <td><p><h6></h6></p></td>
+                        <td><p><h6><b>Location: </b>{{ Location }}</h6></p></td>
+                        <td><p><h6></h6></p></td>
+                    </tr>
+                    </table>
+                    </p>
+                    <input type="hidden" value="{{ patient_name }}" id="pname">
+                    <!--                    <p><h6><b>Lab Location: </b>{{  Location }}</h6></p><br>-->
+                    <h4 id="rheading"><u><b>REPORTS</b></u></h4>
+                    <br>
+
+                    <table class="table" border="0" style="text-align:left;cellpadding:15;">
+                        <tr>
+                            <th>Tests</th>
+                            <th>Results</th>
+                            <th>Confidence</th>
+                            <th>Heat Map</th>
+                            <th>Image</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                {% for val in value %}
+                                <table class="inner_table1" border="0" style="text-align:center;cellpadding:15;">
+                                    <tr>
+                                        {{ val }}
+                                    </tr>
+                                </table>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for n in newlist %}
+                                <table class="inner_table2" border="0" style="text-align:center;cellpadding:15;">
+                                    <tr>
+                                        {{ n }}
+                                    </tr>
+                                </table>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for n in confList %}
+                                <table class="inner_table2" border="0" style="text-align:center;cellpadding:15;">
+                                    <tr>
+                                        {{ n }}
+                                    </tr>
+                                </table>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for n in heatList %}
+                                <table class="inner_table2" border="0" style="text-align:center;cellpadding:15;">
+                                    <tr>
+                                        <img src="{%static 'heatmap/heatmap.png' %}" height="100" width="100"/>
+                                    </tr>
+                                </table>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for n in heatList %}
+                                <table class="inner_table2" border="0" style="text-align:center;cellpadding:15;">
+                                    <tr>
+                                        <img src="{%static 'uploadImage/upload.jpg' %}" height="100" width="100"/>
+                                    </tr>
+                                </table>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div id="editor"></div>
+                <br>
+                <div style="text-align:center;"><a href="{% url 'create_pdf' patient_name %}" id="cmd" class="btn btn-primary">Download PDF</a></div>
+                <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+
+                <script>
+
+    var doc = new jsPDF('p', 'pt', 'letter');
+
+        var specialElementHandlers = {
+            '#editor': function (element, renderer){
+                return true;
+            }
+        }
+
+        $('#cmd').click(function() {
+
+                  var w = document.getElementById("content_id").offsetWidth;
+                  var h = document.getElementById("content_id").offsetHeight;
+                  html2canvas(document.getElementById("content_id"), {
+                    dpi: 300, // Set to 300 DPI
+                    scale: 3, // Adjusts your resolution
+                    onrendered: function (canvas) {
+
+                      var img = canvas.toDataURL("image/jpg", 1);
+                      var doc = new jsPDF('L', 'px', [w, h]);
+                      doc.addImage(img, 'JPG', 0, 0, w, h);
+                      var name = document.getElementById("pname").value
+                      doc.save(name + '_report.pdf');
+                    }
+                  });
+         });
+
+                </script>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

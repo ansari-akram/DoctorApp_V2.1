@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+<head>
+    <title>Image Upload</title>
+</head>
+<body>
+<form method="POST" class="post-form" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Patient Name: <b>{{ patient_name }}</b></label>
+    {{ form.as_p }}
+    <output id="list"></output>
+    <button type="submit" class="btn btn-primary btn-lg">Save</button>
+</form>
+<script type="text/javascript">
+  function handleFileSelect(evt) {
+    var files = evt.target.files;
+    for (var i = 0, f; f = files[i]; i++) {
+      if (!f.type.match('image.*')) {
+        continue;
+      }
+      var reader = new FileReader();
+      reader.onload = (function(theFile) {
+        return function(e) {
+          var span = document.createElement('span');
+          span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                            '" title="', escape(theFile.name), '"/>'].join('');
+          document.getElementById('list').insertBefore(span, null);
+        };
+      })(f);
+      reader.readAsDataURL(f);
+    }
+  }
+
+  document.getElementById('id_Image_Upload').addEventListener('change', handleFileSelect, false);
+
+</script>
+</body>
+{% endblock %}

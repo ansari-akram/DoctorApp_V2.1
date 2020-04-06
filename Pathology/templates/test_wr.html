@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<form method='post'>
+    {% csrf_token %}
+    <tr>
+        <td>
+            <input type="text" class="textinput textInput form-control" name="patient_name"
+                   placeholder="Enter Patient Name...">
+            <br>
+            <ul id="id_test1">
+                {% for test in tests %}
+                <li><label for="id_test1_0"><input type="radio" name="test" value="{{ test }}" id="id_test1_0">
+                    {{ test }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+        </td>
+    </tr>
+    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+</form>
+{% endblock %}
